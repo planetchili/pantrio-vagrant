@@ -56,63 +56,48 @@
     include_role:
       name: nginx
 
-##  - name: Ensure /var/www/html directory has correct permissions.
-##    file:
-##      path: /var/www/html
-##      state: directory
-##      owner: www-data
-##      group: www-data
-##
-##  - name: Ensure .ssh directory exists.
-##    file:
-##      path: /var/www/.ssh
-##      state: directory
-##      mode: 0700
-##      owner: www-data
-##      group: www-data
-##
-##  - name: Ensure GitHub deploy key is present on the server.
-##    copy:
-##      src: /ansible/assets/credentials/planetchili_key
-##      dest: /var/www/.ssh/deploy_key
-##      mode: 0600
-##      owner: www-data
-##      group: www-data
-##
-##  - name: Clone the code repository to the docroot.
-##    git:
-##      repo: git@github.com:planetchili/ravel-x.git
-##      dest: /var/www/html/ravel
-##      accept_hostkey: yes
-##      key_file: /var/www/.ssh/deploy_key
-##      update: no
-##    become_user: www-data
-##
-##  - name: Install composer packages
-##    community.general.composer:
-##      command: install
-##      no_dev: no
-##      working_dir: /var/www/html/ravel
-##
-##  - name: Copy app env
-##    copy:
-##      src: /var/www/html/ravel/.env.example
-##      dest: /var/www/html/ravel/.env
-##
-##  - name: generate laravel key
-##    shell: php artisan key:generate
-##    args:
-##      chdir: /var/www/html/ravel
-##
-##  - name: link laravel storage
-##    shell: php artisan storage:link
-##    args:
-##      chdir: /var/www/html/ravel
-##
-##  - name: Laravel migrate
-##    shell: php artisan migrate:fresh --seed
-##    args:
-##      chdir: /var/www/html/ravel
+  - name: Ensure /var/www/html directory has correct permissions.
+    file:
+      path: /var/www/html
+      state: directory
+      owner: www-data
+      group: www-data
+
+  - name: Clone the code repository to the docroot.
+    git:
+      repo: 'https://github.com/planetchili/pantrio.git'
+      dest: /var/www/html/pantrio
+      update: no
+    become_user: www-data
+
+  - name: Install composer packages
+    community.general.composer:
+      command: install
+      no_dev: no
+      working_dir: /var/www/html/pantrio
+    become_user: www-data
+
+  - name: Copy app env
+    copy:
+      src: /var/www/html/pantrio/.env.example
+      dest: /var/www/html/pantrio/.env
+    become_user: www-data
+
+  - name: generate laravel key
+    shell: php artisan key:generate
+    args:
+      chdir: /var/www/html/pantrio
+    become_user: www-data
+
+#  - name: link laravel storage
+#    shell: php artisan storage:link
+#    args:
+#      chdir: /var/www/html/pantrio
+#
+#  - name: Laravel migrate
+#    shell: php artisan migrate:fresh --seed
+#    args:
+#      chdir: /var/www/html/ravel
 ##
 ##  - name: Install npm packages
 ##    community.general.npm:

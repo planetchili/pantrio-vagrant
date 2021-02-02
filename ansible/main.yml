@@ -1,0 +1,130 @@
+---
+- hosts: all
+  name: Ravel Ops Setup
+  become: yes
+
+  tasks:
+  - name: Add repository for PHP versions (Ubuntu).
+    apt_repository: repo='ppa:ondrej/php'
+      
+  - name: Install PHP
+    apt:
+      name:
+        - php8.0
+        - php8.0-fpm
+        - php8.0-common
+        - php8.0-zip
+        - php8.0-curl
+        - php8.0-xml
+        - php8.0-xml
+        - php8.0-ldap
+        - php8.0-imap
+        - php8.0-mbstring
+        - php8.0-intl
+        - php8.0-cli
+        - php8.0-bcmath
+        - php8.0-opcache
+        - php8.0-pgsql
+        - php8.0-pdo
+        - php8.0-redis
+        - php-xdebug
+      state: present
+
+  - name: Install composer
+    include_role:
+      name: composer
+
+  - name: Install node
+    include_role:
+      name: node
+
+  - name: Install Redis
+    apt:
+      name: redis
+      state: present
+
+  - name: Install Supervisor
+    apt:
+      name: supervisor
+      state: present
+
+  - name: Install Mysql
+    include_role:
+      name: mysql
+
+  - name: Install nginx
+    include_role:
+      name: nginx
+
+##  - name: Ensure /var/www/html directory has correct permissions.
+##    file:
+##      path: /var/www/html
+##      state: directory
+##      owner: www-data
+##      group: www-data
+##
+##  - name: Ensure .ssh directory exists.
+##    file:
+##      path: /var/www/.ssh
+##      state: directory
+##      mode: 0700
+##      owner: www-data
+##      group: www-data
+##
+##  - name: Ensure GitHub deploy key is present on the server.
+##    copy:
+##      src: /ansible/assets/credentials/planetchili_key
+##      dest: /var/www/.ssh/deploy_key
+##      mode: 0600
+##      owner: www-data
+##      group: www-data
+##
+##  - name: Clone the code repository to the docroot.
+##    git:
+##      repo: git@github.com:planetchili/ravel-x.git
+##      dest: /var/www/html/ravel
+##      accept_hostkey: yes
+##      key_file: /var/www/.ssh/deploy_key
+##      update: no
+##    become_user: www-data
+##
+##  - name: Install composer packages
+##    community.general.composer:
+##      command: install
+##      no_dev: no
+##      working_dir: /var/www/html/ravel
+##
+##  - name: Copy app env
+##    copy:
+##      src: /var/www/html/ravel/.env.example
+##      dest: /var/www/html/ravel/.env
+##
+##  - name: generate laravel key
+##    shell: php artisan key:generate
+##    args:
+##      chdir: /var/www/html/ravel
+##
+##  - name: link laravel storage
+##    shell: php artisan storage:link
+##    args:
+##      chdir: /var/www/html/ravel
+##
+##  - name: Laravel migrate
+##    shell: php artisan migrate:fresh --seed
+##    args:
+##      chdir: /var/www/html/ravel
+##
+##  - name: Install npm packages
+##    community.general.npm:
+##      path: /var/www/html/ravel
+##
+###  - name: run webpack
+###    shell: npm run build
+###    args:
+###      chdir: /var/www/html/ravel
+
+#supervisord master config + horizon/larasock
+
+# figure out
+#   requirements.yml ansible-galaxy collection loading vagrant.ansible_local
+#   could just run ansible-galaxy collection install -r requirements.yml in a separate ansible playbook

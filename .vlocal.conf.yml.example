@@ -1,0 +1,8 @@
+---
+project_name: pantrio
+network:
+  ip_address: 192.168.33.77
+  hostname: pantr.io
+vbox:
+  memory: 2048
+---

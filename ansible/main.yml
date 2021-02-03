@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  name: Ravel Ops Setup
+  name: Pantr.io server and application setup
   become: yes
 
   tasks:

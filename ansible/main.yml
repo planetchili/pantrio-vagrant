@@ -20,6 +20,8 @@
         - php8.0-ldap
         - php8.0-imap
         - php8.0-mbstring
+        - php8.0-mysql
+        - php8.0-pdo
         - php8.0-intl
         - php8.0-cli
         - php8.0-bcmath

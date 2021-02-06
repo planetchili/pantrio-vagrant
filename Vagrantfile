@@ -46,7 +46,7 @@ Vagrant.configure("2") do |config|
 
   # Check for missing plugins and install as necessary
   #
-  required_plugins = ['vagrant-hostmanager','vagrant-vbguest','vagrant-cachier','vagrant-winnfsd']
+  required_plugins = ['vagrant-hostmanager','vagrant-vbguest','vagrant-winnfsd']
   plugin_installed = false
   required_plugins.each do |plugin|
     unless Vagrant.has_plugin?(plugin)
@@ -108,10 +108,6 @@ Vagrant.configure("2") do |config|
     vb.memory = lcfg['vbox']['memory']
     vb.gui = lcfg['vbox']['use_gui']
   end
-	
-  # Configuring apt cacheing
-  #
-  config.cache.scope = :box
 
   # Ansible Preparation
   #

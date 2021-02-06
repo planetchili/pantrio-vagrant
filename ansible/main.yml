@@ -95,16 +95,16 @@
 #    shell: php artisan storage:link
 #    args:
 #      chdir: /var/www/html/pantrio
-#
-#  - name: Laravel migrate
-#    shell: php artisan migrate:fresh --seed
-#    args:
-#      chdir: /var/www/html/ravel
-##
-##  - name: Install npm packages
-##    community.general.npm:
-##      path: /var/www/html/ravel
-##
+
+  - name: Laravel migrate
+    shell: php artisan migrate:fresh --seed
+    args:
+      chdir: /var/www/html/pantrio
+
+  - name: Install npm packages
+    community.general.npm:
+      path: /var/www/html/pantrio
+
 ###  - name: run webpack
 ###    shell: npm run build
 ###    args:

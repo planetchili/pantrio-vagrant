@@ -110,6 +110,18 @@
 ###    args:
 ###      chdir: /var/www/html/ravel
 
+  - name: convenient link from dev user home to site directory
+    file:
+      src: /var/www/html/pantrio
+      dest: /home/vagrant/pantrio
+      state: link
+
+  - name: add laravel artisan alias
+    lineinfile:
+      dest: /home/vagrant/.bashrc
+      line: "alias art='php artisan'"
+      owner: vagrant
+
 #supervisord master config + horizon/larasock
 
 # figure out

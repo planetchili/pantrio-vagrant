@@ -32,6 +32,11 @@
         - php-xdebug
       state: present
 
+  - name: Configure PHP (FPM)
+    copy:
+      src: /ansible/assets/php-fpm.ini
+      dest: /etc/php/8.0/fpm/php.ini
+
   - name: Install composer
     include_role:
       name: composer
